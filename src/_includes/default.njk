@@ -1,0 +1,25 @@
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+
+  {% include './meta.njk' %}
+  <link rel="stylesheet" href="/style.css"/>
+  <script src="https://cdn.jsdelivr.net/gh/alpinejs/alpine@v2.8.0/dist/alpine.min.js" defer></script>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Nunito:300,400,600,700&amp;display=swap">
+  {% block head %}{% endblock %}
+</head>
+<body>
+{% include './header.njk' %}
+
+<article class="prose prose-indigo max-w-4xl px-4 sm:px-6 mx-auto my-20">
+  {% block content %}
+  {{ content | safe }}
+  {% endblock %}
+</article>
+
+{% include './footer.njk' %}
+</body>
+</html>

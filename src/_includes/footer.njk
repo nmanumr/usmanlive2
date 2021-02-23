@@ -1,0 +1,18 @@
+<footer class="bg-gray-800" aria-labelledby="footerHeading" x-data="data()">
+  <h2 id="footerHeading" class="sr-only">Footer</h2>
+  <div class="max-w-7xl mx-auto py-12 px-4 sm:px-6 lg:py-16 lg:px-8">
+    <div class="md:flex md:items-center md:justify-between">
+      <p class="mt-8 text-base text-gray-400 md:mt-0 md:order-1">
+        © <span x-text="year"></span> Workflow, Inc. All rights reserved.
+      </p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function data() {
+    return {
+      year: new Date().getFullYear(),
+    };
+  }
+</script>

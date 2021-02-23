@@ -1,0 +1,20 @@
+{% if title %}
+<title>{{title}} - Usman Live</title>
+<meta property="og:title" content="{{title}}">
+<meta name="twitter:title" content="{{title}}">
+{% else %}
+<title>{% block title %}Usman Live{% endblock %}</title>
+<meta property="og:title" content="Usman Live">
+<meta name="twitter:title" content="Usman Live">
+{% endif %}
+{% if description %}
+<meta name="description" content="{{description}}"/>
+<meta property="og:description" content="{{description}}">
+<meta name="twitter:description" content="{{description}}">
+{% endif %}
+{% if image %}
+<meta property="og:image" content="https://cloud.objex.tech{{image}}">
+<meta name="twitter:image" content="https://cloud.objex.tech{{image}}">
+{% endif %}
+<meta name="twitter:card" content="summary">
+<meta property="og:url" content="https://nmanumr.github.io/usmanlive2{{page.url}}">
