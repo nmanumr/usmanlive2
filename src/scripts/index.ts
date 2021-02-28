@@ -21,42 +21,33 @@
  */
 
 import "focus-visible"
-import {Subject, defer, merge, Observable} from "rxjs"
-import {
-    delay,
-    filter,
-    mergeWith,
-    shareReplay,
-    switchMap
-} from "rxjs/operators"
+import {merge, Subject} from "rxjs"
+import {delay, filter} from "rxjs/operators"
 
 import {
-    getElement,
-    setToggle,
-    watchDocument,
-    watchKeyboard,
-    watchLocation,
-    watchLocationTarget,
-    watchMedia,
-    watchPrint,
-    watchViewport
+  getElement,
+  setToggle,
+  watchDocument,
+  watchKeyboard,
+  watchLocation,
+  watchLocationTarget,
+  watchMedia,
+  watchPrint,
+  watchViewport
 } from "./$browser"
-import {
-    Component,
-    getComponentElements,
-    mountContent,
-    mountDialog,
-    mountSource,
-} from "./components"
-import {
-    setupClipboardJS,
-    setupInstantLoading
-} from "./integrations"
-import {
-    patchIndeterminate,
-    patchScrollfix,
-    patchScrolllock
-} from "./patches"
+// import {
+//     Component,
+//     getComponentElements,
+//     mountContent,
+//     mountDialog,
+//     mountSource,
+// } from "./components"
+// import {setupClipboardJS,} from "./integrations"
+// import {
+//     patchIndeterminate,
+//     patchScrollfix,
+//     patchScrolllock
+// } from "./patches"
 
 /* ----------------------------------------------------------------------------
  * Application
@@ -80,80 +71,80 @@ const print$ = watchPrint()
 
 /* Set up Clipboard.js integration */
 const alert$ = new Subject<string>()
-setupClipboardJS({alert$})
+// setupClipboardJS({alert$})
 
 /* Set up instant loading */
-setupInstantLoading({document$, location$, viewport$})
+// setupInstantLoading({document$, location$, viewport$})
 
 /* Always close drawer and search on navigation */
 merge(location$, target$)
-    .pipe(
-        delay(125)
-    )
-    .subscribe(() => {
-        setToggle("drawer", false)
-        setToggle("search", false)
-    })
+  .pipe(
+    delay(125)
+  )
+  .subscribe(() => {
+    setToggle("drawer", false)
+    setToggle("search", false)
+  })
 
 /* Set up global keyboard handlers */
 keyboard$
-    .pipe(
-        filter(({mode}) => mode === "global")
-    )
-    .subscribe(key => {
-        switch (key.type) {
+  .pipe(
+    filter(({mode}) => mode === "global")
+  )
+  .subscribe(key => {
+    switch (key.type) {
 
-            /* Go to previous page */
-            case "p":
-            case ",":
-                const prev = getElement("[href][rel=prev]")
-                if (typeof prev !== "undefined")
-                    prev.click()
-                break
+      /* Go to previous page */
+      case "p":
+      case ",":
+        const prev = getElement("[href][rel=prev]")
+        if (typeof prev !== "undefined")
+          prev.click()
+        break
 
-            /* Go to next page */
-            case "n":
-            case ".":
-                const next = getElement("[href][rel=next]")
-                if (typeof next !== "undefined")
-                    next.click()
-                break
-        }
-    })
+      /* Go to next page */
+      case "n":
+      case ".":
+        const next = getElement("[href][rel=next]")
+        if (typeof next !== "undefined")
+          next.click()
+        break
+    }
+  })
 
 /* Set up patches */
-patchIndeterminate({document$})
-patchScrollfix({document$})
-patchScrolllock({viewport$, tablet$})
+// patchIndeterminate({document$})
+// patchScrollfix({document$})
+// patchScrolllock({viewport$, tablet$})
 
 /* Set up control component observables */
-const control$ = merge(
-    /* Dialog */
-    ...getComponentElements("dialog")
-        .map(el => mountDialog(el, {alert$})),
-
-    /* Repository information */
-    ...getComponentElements("source")
-        .map(el => mountSource(el as HTMLAnchorElement)),
-)
+// const control$ = merge(
+//     /* Dialog */
+//     ...getComponentElements("dialog")
+//         .map(el => mountDialog(el, {alert$})),
+//
+//     /* Repository information */
+//     ...getComponentElements("source")
+//         .map(el => mountSource(el as HTMLAnchorElement)),
+// )
 
 /* Set up content component observables */
-const content$ = defer(() => merge(
-    /* Content */
-    ...getComponentElements("content")
-        .map(el => mountContent(el, {target$, viewport$, print$})),
-))
+// const content$ = defer(() => merge(
+//     /* Content */
+//     ...getComponentElements("content")
+//         .map(el => mountContent(el, {target$, viewport$, print$})),
+// ))
 
 /* Set up component observables */
-const component$ = document$
-    .pipe(
-        switchMap(() => content$),
-        mergeWith(control$),
-        shareReplay(1)
-    )
-
-/* Subscribe to all components */
-component$.subscribe()
+// const component$ = document$
+//     .pipe(
+//         switchMap(() => content$),
+//         mergeWith(control$),
+//         shareReplay(1)
+//     )
+//
+// /* Subscribe to all components */
+// component$.subscribe()
 
 /* ----------------------------------------------------------------------------
  * Exports
@@ -168,4 +159,4 @@ window.tablet$ = tablet$
 window.screen$ = screen$
 window.print$ = print$
 window.alert$ = alert$
-window.component$ = component$ as Observable<Component>
+// window.component$ = component$ as Observable<Component>

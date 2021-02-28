@@ -26,29 +26,6 @@ import { map, startWith } from "rxjs/operators"
 import { getElementOrThrow } from "../element"
 
 /* ----------------------------------------------------------------------------
- * Types
- * ------------------------------------------------------------------------- */
-
-/**
- * Toggle
- */
-export type Toggle =
-  | "drawer"                           /* Toggle for drawer */
-  | "search"                           /* Toggle for search */
-
-/* ----------------------------------------------------------------------------
- * Data
- * ------------------------------------------------------------------------- */
-
-/**
- * Toggle map
- */
-const toggles: Record<Toggle, HTMLInputElement> = {
-  drawer: getElementOrThrow("[data-md-toggle=drawer]"),
-  search: getElementOrThrow("[data-md-toggle=search]")
-}
-
-/* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
@@ -59,8 +36,9 @@ const toggles: Record<Toggle, HTMLInputElement> = {
  *
  * @returns Toggle value
  */
-export function getToggle(name: Toggle): boolean {
-  return toggles[name].checked
+export function getToggle(name: string): boolean {
+  const el: HTMLInputElement = getElementOrThrow(`[data-md-toggle=${name}]`);
+  return el.checked
 }
 
 /**
@@ -74,9 +52,10 @@ export function getToggle(name: Toggle): boolean {
  * @param name - Toggle
  * @param value - Toggle value
  */
-export function setToggle(name: Toggle, value: boolean): void {
-  if (toggles[name].checked !== value)
-    toggles[name].click()
+export function setToggle(name: string, value: boolean): void {
+  const el: HTMLInputElement = getElementOrThrow(`[data-md-toggle=${name}]`);
+  if (el.checked !== value)
+    el.click()
 }
 
 /* ------------------------------------------------------------------------- */
@@ -88,8 +67,8 @@ export function setToggle(name: Toggle, value: boolean): void {
  *
  * @returns Toggle value observable
  */
-export function watchToggle(name: Toggle): Observable<boolean> {
-  const el = toggles[name]
+export function watchToggle(name: string): Observable<boolean> {
+  const el: HTMLInputElement = getElementOrThrow(`[data-md-toggle=${name}]`);
   return fromEvent(el, "change")
     .pipe(
       map(() => el.checked),

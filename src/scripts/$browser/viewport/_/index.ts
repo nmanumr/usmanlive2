@@ -27,8 +27,6 @@ import {
   shareReplay
 } from "rxjs/operators"
 
-import { Header } from "../../../components"
-
 import {
   ViewportOffset,
   watchViewportOffset
@@ -59,7 +57,6 @@ export interface Viewport {
  */
 interface WatchAtOptions {
   viewport$: Observable<Viewport>      /* Viewport observable */
-  header$: Observable<Header>          /* Header observable */
 }
 
 /* ----------------------------------------------------------------------------
@@ -91,7 +88,7 @@ export function watchViewport(): Observable<Viewport> {
  * @returns Viewport observable
  */
 export function watchViewportAt(
-  el: HTMLElement, { viewport$, header$ }: WatchAtOptions
+  el: HTMLElement, { viewport$ }: WatchAtOptions
 ): Observable<Viewport> {
   const size$ = viewport$
     .pipe(
@@ -99,7 +96,7 @@ export function watchViewportAt(
     )
 
   /* Compute element offset */
-  const offset$ = combineLatest([size$, header$])
+  const offset$ = combineLatest([size$])
     .pipe(
       map((): ViewportOffset => ({
         x: el.offsetLeft,
@@ -108,14 +105,14 @@ export function watchViewportAt(
     )
 
   /* Compute relative viewport, return hot observable */
-  return combineLatest([header$, viewport$, offset$])
+  return (combineLatest([viewport$, offset$]) as Observable<[Viewport, ViewportOffset]>)
     .pipe(
-      map<[Header, Viewport, ViewportOffset], Viewport>(([{ height }, { offset, size }, { x, y }]) => ({
+      map(([{ offset, size }, { x, y }]) => ({
         offset: {
           x: offset.x - x,
-          y: offset.y - y + height
+          y: offset.y - y
         },
         size
-      }) as Viewport)
+      }))
     )
 }
