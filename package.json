@@ -16,6 +16,7 @@
     "@types/resize-observer-browser": "^0.1.5",
     "browser-sync": "^2.26.14",
     "del": "^2.2.2",
+    "github-types": "^1.0.0",
     "gulp": "^4.0.2",
     "gulp-postcss": "^9.0.0",
     "gulp-size": "^3.0.0",

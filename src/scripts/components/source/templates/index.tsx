@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { SourceFacts } from "../../components"
-import { h } from "../../utilities"
+import { SourceFacts } from "../facts";
+import { h } from "../../../utilities";
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -36,10 +36,10 @@ import { h } from "../../utilities"
  */
 export function renderSourceFacts(facts: SourceFacts): HTMLElement {
   return (
-    <ul class="md-source__facts">
+    <ul class="flex text-xs space-x-2 opacity-75 source-facts">
       {facts.map(fact => (
-        <li class="md-source__fact">{fact}</li>
-      ))}
-    </ul>
+          <li class="source-fact">{fact}</li>
+        ))}
+      </ul>
   )
 }

@@ -20,67 +20,30 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, fromEvent, merge } from "rxjs"
-import {
-  filter,
-  map,
-  mapTo,
-  startWith,
-  switchMap
-} from "rxjs/operators"
-
 /* ----------------------------------------------------------------------------
  * Functions
  * ------------------------------------------------------------------------- */
 
 /**
- * Watch media query
+ * Set repository facts
  *
- * @param query - Media query
- *
- * @returns Media observable
+ * @param el - Repository element
+ * @param child - Repository facts element
  */
-export function watchMedia(query: string): Observable<boolean> {
-  const media = matchMedia(query)
-  return fromEvent<MediaQueryListEvent>(media, "change")
-    .pipe(
-      map(ev => ev.matches),
-      startWith(media.matches)
-    )
+export function setSourceFacts(
+  el: HTMLElement, child: Element
+): void {
+  el.lastElementChild!.appendChild(child)
 }
 
 /**
- * Watch print mode, cross-$browser
+ * Set repository state
  *
- * @returns Print mode observable
+ * @param el - Repository element
+ * @param state - Repository state
  */
-export function watchPrint(): Observable<void> {
-  return merge(
-    watchMedia("print").pipe(filter(Boolean)),  /* Webkit */
-    fromEvent(window, "beforeprint")            /* IE, FF */
-  )
-    .pipe(
-      mapTo(undefined)
-    )
-}
-
-/* ------------------------------------------------------------------------- */
-
-/**
- * Toggle an observable with a media observable
- *
- * @templates T - Data type
- *
- * @param query$ - Media observable
- * @param factory - Observable factory
- *
- * @returns Toggled observable
- */
-export function at<T>(
-  query$: Observable<boolean>, factory: () => Observable<T>
-): Observable<T> {
-  return query$
-    .pipe(
-      switchMap(active => active ? factory() : NEVER)
-    )
+export function setSourceState(
+  el: HTMLElement, state: "done"
+): void {
+  el.lastElementChild!.setAttribute("data-md-state", state)
 }

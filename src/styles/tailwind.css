@@ -5,3 +5,22 @@
 .container {
     @apply max-w-7xl mx-auto px-4 sm:px-6;
 }
+
+@keyframes source-facts--done {
+    0% { height: 0; }
+    100% { height: 17px; }
+}
+
+@keyframes source-fact--done {
+    0% { transform: translateY(100%); opacity: 0; }
+    50% { opacity: 0; }
+    100% { transform: translateY(0%); opacity: 1; }
+}
+
+[data-md-state=done] .source-facts {
+    animation: source-facts--done .25s ease-in;
+}
+
+[data-md-state=done] .source-fact {
+    animation: source-fact--done .4s ease-out;
+}

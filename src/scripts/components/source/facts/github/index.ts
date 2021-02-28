@@ -24,8 +24,8 @@ import { Repo, User } from "github-types"
 import { Observable } from "rxjs"
 import { defaultIfEmpty, map } from "rxjs/operators"
 
-import { requestJSON } from "~/$browser"
-import { round } from "~/utilities"
+import { requestJSON } from "../../../../$browser"
+import { round } from "../../../..//utilities"
 
 import { SourceFacts } from "../_"
 

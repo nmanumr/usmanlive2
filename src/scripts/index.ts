@@ -21,12 +21,11 @@
  */
 
 import "focus-visible"
-import {merge, Subject} from "rxjs"
-import {delay, filter} from "rxjs/operators"
+import {merge, Observable, Subject} from "rxjs"
+import {filter, mergeWith, shareReplay} from "rxjs/operators"
 
 import {
   getElement,
-  setToggle,
   watchDocument,
   watchKeyboard,
   watchLocation,
@@ -35,13 +34,7 @@ import {
   watchPrint,
   watchViewport
 } from "./$browser"
-// import {
-//     Component,
-//     getComponentElements,
-//     mountContent,
-//     mountDialog,
-//     mountSource,
-// } from "./components"
+import {Component, getComponentElements, mountSource,} from "./components"
 // import {setupClipboardJS,} from "./integrations"
 // import {
 //     patchIndeterminate,
@@ -77,14 +70,14 @@ const alert$ = new Subject<string>()
 // setupInstantLoading({document$, location$, viewport$})
 
 /* Always close drawer and search on navigation */
-merge(location$, target$)
-  .pipe(
-    delay(125)
-  )
-  .subscribe(() => {
-    setToggle("drawer", false)
-    setToggle("search", false)
-  })
+// merge(location$, target$)
+//   .pipe(
+//     delay(125)
+//   )
+//   .subscribe(() => {
+//     setToggle("drawer", false)
+//     setToggle("search", false)
+//   })
 
 /* Set up global keyboard handlers */
 keyboard$
@@ -118,15 +111,15 @@ keyboard$
 // patchScrolllock({viewport$, tablet$})
 
 /* Set up control component observables */
-// const control$ = merge(
-//     /* Dialog */
-//     ...getComponentElements("dialog")
-//         .map(el => mountDialog(el, {alert$})),
-//
-//     /* Repository information */
-//     ...getComponentElements("source")
-//         .map(el => mountSource(el as HTMLAnchorElement)),
-// )
+const control$ = merge(
+  /* Dialog */
+  // ...getComponentElements("dialog")
+  //     .map(el => mountDialog(el, {alert$})),
+
+  /* Repository information */
+  ...getComponentElements("source")
+    .map(el => mountSource(el as HTMLAnchorElement)),
+)
 
 /* Set up content component observables */
 // const content$ = defer(() => merge(
@@ -136,15 +129,15 @@ keyboard$
 // ))
 
 /* Set up component observables */
-// const component$ = document$
-//     .pipe(
-//         switchMap(() => content$),
-//         mergeWith(control$),
-//         shareReplay(1)
-//     )
+const component$ = document$
+  .pipe(
+    // switchMap(() => content$),
+    mergeWith(control$),
+    shareReplay(1)
+  )
 //
 // /* Subscribe to all components */
-// component$.subscribe()
+component$.subscribe()
 
 /* ----------------------------------------------------------------------------
  * Exports
@@ -159,4 +152,4 @@ window.tablet$ = tablet$
 window.screen$ = screen$
 window.print$ = print$
 window.alert$ = alert$
-// window.component$ = component$ as Observable<Component>
+window.component$ = component$ as Observable<Component>

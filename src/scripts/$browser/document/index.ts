@@ -20,8 +20,8 @@
  * IN THE SOFTWARE.
  */
 
-import { ReplaySubject, Subject, fromEvent } from "rxjs"
-import { mapTo } from "rxjs/operators"
+import {fromEvent, ReplaySubject, Subject} from "rxjs"
+import {mapTo} from "rxjs/operators"
 
 /* ----------------------------------------------------------------------------
  * Functions
@@ -40,9 +40,9 @@ export function watchDocument(): Subject<Document> {
   const document$ = new ReplaySubject<Document>()
   fromEvent(document, "DOMContentLoaded")
     .pipe(
-      mapTo(document)
+      mapTo(document),
     )
-      .subscribe(document$)
+    .subscribe(document$)
 
   /* Return document */
   return document$

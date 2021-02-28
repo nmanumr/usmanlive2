@@ -44,7 +44,7 @@ export interface WorkerMessage {
 /**
  * Worker handler
  *
- * @template T - Message type
+ * @templates T - Message type
  */
 export interface WorkerHandler<
   T extends WorkerMessage
@@ -60,7 +60,7 @@ export interface WorkerHandler<
 /**
  * Watch options
  *
- * @template T - Worker message type
+ * @templates T - Worker message type
  */
 interface WatchOptions<T extends WorkerMessage> {
   tx$: Observable<T>                   /* Message transmission observable */

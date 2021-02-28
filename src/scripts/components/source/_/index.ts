@@ -20,22 +20,15 @@
  * IN THE SOFTWARE.
  */
 
-import { NEVER, Observable, Subject, defer, of } from "rxjs"
-import {
-  catchError,
-  filter,
-  finalize,
-  map,
-  shareReplay,
-  tap
-} from "rxjs/operators"
+import {defer, NEVER, Observable, of, Subject} from "rxjs"
+import {catchError, filter, finalize, map, shareReplay, tap} from "rxjs/operators"
 
-import { setSourceFacts, setSourceState } from "../../../actions"
-import { renderSourceFacts } from "../../../templates"
-import { hash } from "../../../utilities"
+import {setSourceFacts, setSourceState} from "../actions"
+import {renderSourceFacts} from "../templates"
+import {hash} from "../../../utilities"
 
-import { Component } from "../../_"
-import { SourceFacts, fetchSourceFacts } from "../facts"
+import {Component} from "../../_"
+import {fetchSourceFacts, SourceFacts} from "../facts"
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -74,6 +67,7 @@ let fetch$: Observable<Source>
 export function watchSource(
   el: HTMLAnchorElement
 ): Observable<Source> {
+  debugger;
   const digest = hash(el.href).toString()
 
   /* Fetch repository facts once */
@@ -98,7 +92,7 @@ export function watchSource(
     .pipe(
       catchError(() => NEVER),
       filter(facts => facts.length > 0),
-      map(facts => ({ facts })),
+      map(facts => ({facts})),
       shareReplay(1)
     )
 
@@ -116,16 +110,19 @@ export function mountSource(
   el: HTMLAnchorElement
 ): Observable<Component<Source>> {
   const internal$ = new Subject<Source>()
-  internal$.subscribe(({ facts }) => {
+  internal$.pipe(tap(console.log)).subscribe(({facts}) => {
+    console.log(facts);
     setSourceFacts(el, renderSourceFacts(facts))
     setSourceState(el, "done")
   })
 
+  debugger;
   /* Create and return component */
   return watchSource(el)
     .pipe(
+      tap(console.log),
       tap(internal$),
       finalize(() => internal$.complete()),
-      map(state => ({ ref: el, ...state }))
+      map(state => ({ref: el, ...state}))
     )
 }
