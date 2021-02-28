@@ -24,7 +24,7 @@ import { Observable, combineLatest } from "rxjs"
 import {
   distinctUntilKeyChanged,
   map,
-  shareReplay
+  shareReplay,
 } from "rxjs/operators"
 
 import {
@@ -35,6 +35,8 @@ import {
   ViewportSize,
   watchViewportSize
 } from "../size"
+import {ElementSize, watchElementSize} from "../../element/size";
+import {getComponentElement} from "../../../components/_";
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -104,15 +106,17 @@ export function watchViewportAt(
       }))
     )
 
+  const $headerSize = watchElementSize(getComponentElement('header'));
+
   /* Compute relative viewport, return hot observable */
-  return (combineLatest([viewport$, offset$]) as Observable<[Viewport, ViewportOffset]>)
+  return (combineLatest([viewport$, offset$, $headerSize]) as Observable<[Viewport, ViewportOffset, ElementSize]>)
     .pipe(
-      map(([{ offset, size }, { x, y }]) => ({
+      map(([{ offset, size }, { x, y }, {height}]) => ({
         offset: {
           x: offset.x - x,
-          y: offset.y - y
+          y: offset.y - y + height
         },
         size
-      }))
+      })),
     )
 }

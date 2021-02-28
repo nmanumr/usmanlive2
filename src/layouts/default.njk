@@ -13,9 +13,13 @@
 <body>
 {% include './partials/header.njk' %}
 
-{{ content | safe }}
+<div>
+  {% include './partials/tabs.njk' %}
 
-{% include './partials/footer.njk' %}
+  {{ content | safe }}
+
+  {% include './partials/footer.njk' %}
+</div>
 
 {% include './partials/config.njk' %}
 {% block scripts %}

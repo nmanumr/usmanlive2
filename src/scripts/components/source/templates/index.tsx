@@ -36,9 +36,9 @@ import { h } from "../../../utilities";
  */
 export function renderSourceFacts(facts: SourceFacts): HTMLElement {
   return (
-    <ul class="flex text-xs space-x-2 opacity-75 source-facts">
+    <ul class="flex text-xs space-x-2 opacity-75 source__facts">
       {facts.map(fact => (
-          <li class="source-fact">{fact}</li>
+          <li class="source__fact">{fact}</li>
         ))}
       </ul>
   )

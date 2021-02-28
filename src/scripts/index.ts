@@ -34,7 +34,12 @@ import {
   watchPrint,
   watchViewport
 } from "./$browser"
-import {Component, getComponentElements, mountSource,} from "./components"
+import {
+  Component,
+  getComponentElements,
+  mountSource,
+  mountTabs,
+} from "./components"
 // import {setupClipboardJS,} from "./integrations"
 // import {
 //     patchIndeterminate,
@@ -119,6 +124,10 @@ const control$ = merge(
   /* Repository information */
   ...getComponentElements("source")
     .map(el => mountSource(el as HTMLAnchorElement)),
+
+  /* Navigation tabs */
+  ...getComponentElements("tabs")
+    .map(el => mountTabs(el, { viewport$ })),
 )
 
 /* Set up content component observables */

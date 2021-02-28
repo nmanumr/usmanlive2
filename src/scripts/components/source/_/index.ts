@@ -110,17 +110,14 @@ export function mountSource(
   el: HTMLAnchorElement
 ): Observable<Component<Source>> {
   const internal$ = new Subject<Source>()
-  internal$.pipe(tap(console.log)).subscribe(({facts}) => {
-    console.log(facts);
+  internal$.subscribe(({facts}) => {
     setSourceFacts(el, renderSourceFacts(facts))
     setSourceState(el, "done")
   })
 
-  debugger;
   /* Create and return component */
   return watchSource(el)
     .pipe(
-      tap(console.log),
       tap(internal$),
       finalize(() => internal$.complete()),
       map(state => ({ref: el, ...state}))
