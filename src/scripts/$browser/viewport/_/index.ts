@@ -36,7 +36,7 @@ import {
   watchViewportSize
 } from "../size"
 import {ElementSize, watchElementSize} from "../../element/size";
-import {getComponentElement} from "../../../components/_";
+import {getElementOrThrow} from "../../element/_";
 
 /* ----------------------------------------------------------------------------
  * Types
@@ -106,7 +106,7 @@ export function watchViewportAt(
       }))
     )
 
-  const $headerSize = watchElementSize(getComponentElement('header'));
+  const $headerSize = watchElementSize(getElementOrThrow(`[data-md-component=header]`));
 
   /* Compute relative viewport, return hot observable */
   return (combineLatest([viewport$, offset$, $headerSize]) as Observable<[Viewport, ViewportOffset, ElementSize]>)

@@ -10,7 +10,7 @@ const inputOptions = {
   plugins: [
     nodeResolve(),
     typescript(),
-    terser(),
+    terser({ format: { comments: false } }),
   ],
 }
 
@@ -23,7 +23,7 @@ const outputOptions = outputs.map(output => {
   return {
     ...output,
     sourcemap: true,
-    plugins: [terser()],
+    plugins: [terser({ format: { comments: false } })],
   };
 });
 
