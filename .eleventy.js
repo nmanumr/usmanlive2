@@ -2,7 +2,7 @@ module.exports = function () {
   return {
     dir: {
       input: "docs",
-      includes: '../src/_includes/',
+      includes: '../src/layouts/',
       output: "dist"
     }
   };
