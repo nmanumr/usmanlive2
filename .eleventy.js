@@ -11,8 +11,8 @@ module.exports = function (config) {
   config.addFilter('toc', toc);
 
   return {
+    pathPrefix,
     dir: {
-      pathPrefix,
       input: "docs",
       includes: '../src/layouts/',
       output: "dist"
