@@ -6,8 +6,8 @@
   "author": "nmanumr",
   "license": "ISC",
   "scripts": {
-    "start": "eleventy --serve & postcss src/styles/tailwind.css --o _tmp/style.css --watch",
-    "build": "ELEVENTY_PRODUCTION=true eleventy & NODE_ENV=production postcss src/styles/tailwind.css --o _tmp/style.css"
+    "start": "gulp",
+    "build": ""
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.1",
@@ -15,11 +15,14 @@
     "@types/clipboard": "^2.0.1",
     "@types/resize-observer-browser": "^0.1.5",
     "browser-sync": "^2.26.14",
+    "cheerio": "^1.0.0-rc.5",
     "del": "^2.2.2",
     "github-types": "^1.0.0",
     "gulp": "^4.0.2",
     "gulp-postcss": "^9.0.0",
     "gulp-size": "^3.0.0",
+    "markdown-it-anchor": "^7.0.2",
+    "markdown-it-container": "^3.0.0",
     "postcss": "^8.2.6",
     "postcss-cli": "^8.3.1",
     "preact": "^10.5.12",
@@ -30,9 +33,11 @@
     "typescript": "^4.2.2"
   },
   "dependencies": {
+    "@tailwindcss/aspect-ratio": "^0.2.0",
     "@tailwindcss/typography": "^0.3.1",
     "clipboard": "^2.0.6",
     "focus-visible": "^5.2.0",
+    "markdown-it": "^10.0.0",
     "rxjs": "^7.0.0-beta.10"
   }
 }

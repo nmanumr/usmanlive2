@@ -1,0 +1,16 @@
+<nav class="md-nav md-nav--secondary">
+  {% set toc = content | toc %}
+
+  {% if toc | first is defined and (toc | first).level == 1 %}
+  {% set toc = (toc | first).children %}
+  {% endif %}
+
+  {% if toc | first is defined %}
+  <h5 class="text-gray-900 uppercase tracking-wide font-bold mb-3 text-sm lg:text-xs px-4">Table of Content</h5>
+  <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+    {% for toc_item in toc %}
+    {% include "partials/toc-item.html" %}
+    {% endfor %}
+  </ul>
+  {% endif %}
+</nav>

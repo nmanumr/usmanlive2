@@ -2,8 +2,18 @@
 layout: default.njk
 ---
 
-<article class="prose prose-indigo max-w-4xl px-4 sm:px-6 mx-auto my-20">
-  {% block content %}
-  {{ content | safe }}
-  {% endblock %}
-</article>
+<div class="container mt-8 flex mb-20 mt-5 space-x-8">
+  <div class="flex-grow">
+    <article class="prose max-w-full prose-indigo">
+      {% block content %}
+      {{ content | safe }}
+      {% endblock %}
+
+    </article>
+  </div>
+  <div class="w-64 flex-shrink-0 hidden md:block text-gray-500 font-medium">
+    {% include "partials/toc.html" %}
+  </div>
+</div>
+
+

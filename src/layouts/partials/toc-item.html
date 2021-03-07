@@ -1,0 +1,15 @@
+<li class="md-nav__item px-4 py-1">
+  <a href="{{ toc_item.url }}" class="md-nav__link text-sm text-gray-400 hover:text-gray-800 transition duration-150">
+    {{ toc_item.name }}
+  </a>
+
+  {% if toc_item.children %}
+  <nav class="md-nav mt-1" aria-label="{{ toc_item.title }}">
+    <ul class="md-nav__list">
+      {% for toc_item in toc_item.children %}
+      {% include "partials/toc-item.html" %}
+      {% endfor %}
+    </ul>
+  </nav>
+  {% endif %}
+</li>

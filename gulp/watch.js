@@ -8,6 +8,7 @@ const watcher = cb => {
   // Eleventy files
   watch([
     '.eleventy.js',
+    'eleventy/**/*',
     'src/layouts/**/*',
     'docs/**/*',
   ], series(eleventy, reload), cb);
