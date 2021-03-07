@@ -7,7 +7,7 @@
   "license": "ISC",
   "scripts": {
     "start": "gulp",
-    "build": ""
+    "build": "NODE_ENV=production gulp build"
   },
   "devDependencies": {
     "@11ty/eleventy": "^0.11.1",
@@ -16,6 +16,7 @@
     "@types/resize-observer-browser": "^0.1.5",
     "browser-sync": "^2.26.14",
     "cheerio": "^1.0.0-rc.5",
+    "cssnano": "^4.1.10",
     "del": "^2.2.2",
     "github-types": "^1.0.0",
     "gulp": "^4.0.2",
