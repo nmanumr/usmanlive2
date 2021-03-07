@@ -19,89 +19,87 @@
     }
 }
 
-@layer components {
-    /* ----------------------------------------------------------------------------
-     * Tabs Component
-     * ------------------------------------------------------------------------- */
-    .tabs__nav > .tabs__item {
-        opacity: .6;
-        transition: transform .4s cubic-bezier(.1, .7, .1, 1), opacity .25s;
-        backface-visibility: hidden;
-    }
+/* ----------------------------------------------------------------------------
+ * Tabs Component
+ * ------------------------------------------------------------------------- */
+.tabs__nav > .tabs__item {
+    opacity: .6;
+    transition: transform .4s cubic-bezier(.1, .7, .1, 1), opacity .25s;
+    backface-visibility: hidden;
+}
 
-    .tabs[data-md-state=hidden] .tabs__nav {
-        pointer-events: none;
-    }
+.tabs[data-md-state=hidden] .tabs__nav {
+    pointer-events: none;
+}
 
-    .tabs[data-md-state=hidden] .tabs__item {
-        transform: translateY(16%);
+.tabs[data-md-state=hidden] .tabs__item {
+    transform: translateY(16%);
+    opacity: 0;
+    transition: transform 0ms .1s,opacity .1s;
+}
+
+.tabs__item:nth-child(2) {
+    transition-delay: 20ms;
+}
+
+.tabs__item:nth-child(3) {
+    transition-delay: 40ms;
+}
+
+.tabs__item:nth-child(4) {
+    transition-delay: 60ms;
+}
+
+.tabs__item:nth-child(5) {
+    transition-delay: 80ms;
+}
+
+.tabs__item:nth-child(6) {
+    transition-delay: 100ms;
+}
+
+.tabs__item:nth-child(7) {
+    transition-delay: 120ms;
+}
+
+.tabs__item:nth-child(8) {
+    transition-delay: 140ms;
+}
+
+.tabs__item:nth-child(9) {
+    transition-delay: 160ms;
+}
+
+/* ----------------------------------------------------------------------------
+ * Source Component
+ * ------------------------------------------------------------------------- */
+@keyframes source__facts--done {
+    0% {
+        height: 0;
+    }
+    100% {
+        height: 17px;
+    }
+}
+
+@keyframes source__fact--done {
+    0% {
+        transform: translateY(100%);
         opacity: 0;
-        transition: transform 0ms .1s,opacity .1s;
     }
+    50% {
+        opacity: 0;
+    }
+    100% {
+        transform: translateY(0%);
+        opacity: 1;
+    }
+}
 
-    .tabs__item:nth-child(2) {
-        transition-delay: 20ms;
-    }
+[data-md-state=done] .source__facts {
+    animation: source__facts--done .25s ease-in;
+}
 
-    .tabs__item:nth-child(3) {
-        transition-delay: 40ms;
-    }
-
-    .tabs__item:nth-child(4) {
-        transition-delay: 60ms;
-    }
-
-    .tabs__item:nth-child(5) {
-        transition-delay: 80ms;
-    }
-
-    .tabs__item:nth-child(6) {
-        transition-delay: 100ms;
-    }
-
-    .tabs__item:nth-child(7) {
-        transition-delay: 120ms;
-    }
-
-    .tabs__item:nth-child(8) {
-        transition-delay: 140ms;
-    }
-
-    .tabs__item:nth-child(9) {
-        transition-delay: 160ms;
-    }
-
-    /* ----------------------------------------------------------------------------
-     * Source Component
-     * ------------------------------------------------------------------------- */
-    @keyframes source__facts--done {
-        0% {
-            height: 0;
-        }
-        100% {
-            height: 17px;
-        }
-    }
-
-    @keyframes source__fact--done {
-        0% {
-            transform: translateY(100%);
-            opacity: 0;
-        }
-        50% {
-            opacity: 0;
-        }
-        100% {
-            transform: translateY(0%);
-            opacity: 1;
-        }
-    }
-
-    [data-md-state=done] .source__facts {
-        animation: source__facts--done .25s ease-in;
-    }
-
-    [data-md-state=done] .source__fact {
-        animation: source__fact--done .4s ease-out;
-    }
+[data-md-state=done] .source__fact {
+    animation: source__fact--done .4s ease-out;
 }
