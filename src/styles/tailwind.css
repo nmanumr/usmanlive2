@@ -103,3 +103,7 @@
 [data-md-state=done] .source__fact {
     animation: source__fact--done .4s ease-out;
 }
+
+.prose :target {
+    scroll-margin-top: 90px;
+}
