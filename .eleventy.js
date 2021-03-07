@@ -1,5 +1,6 @@
 const markdown = require('./eleventy/markdown');
 const toc = require('./eleventy/toc');
+const {pathPrefix} = require('./gulp/_config');
 
 module.exports = function (config) {
   // Markdown
@@ -11,6 +12,7 @@ module.exports = function (config) {
 
   return {
     dir: {
+      pathPrefix,
       input: "docs",
       includes: '../src/layouts/',
       output: "dist"

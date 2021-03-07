@@ -11,6 +11,7 @@ module.exports = {
   input: 'src',
   output: 'dist',
   devServerTarget: 'localhost:5555',
+  pathPrefix: isProd ? '/usmanlive2/' : '/',
   rollup: {
     watchDir: 'src/scripts/**/*',
     input: 'src/scripts/index.ts',
